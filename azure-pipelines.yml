@@ -146,9 +146,9 @@ stages:
 # # as-is. Runs after Terraform so infra always exists before images do.
 # # =========================================================
 
-- stage: DockerBuild
-  displayName: Docker Build & Push
-  dependsOn: Terraform
+# - stage: DockerBuild
+#   displayName: Docker Build & Push
+#   dependsOn: Terraform
 
 #   jobs:
 
@@ -234,7 +234,7 @@ stages:
 
 - stage: DeployToAKS
   displayName: Deploy to AKS
-  dependsOn: DockerBuild
+  # dependsOn: DockerBuild
 
   jobs:
 
