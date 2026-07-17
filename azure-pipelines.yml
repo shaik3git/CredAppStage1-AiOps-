@@ -70,75 +70,75 @@ stages:
 # pushes the PostgreSQL credentials into the existing Azure Key Vault.
 # =========================================================
 
-- stage: Terraform
-  displayName: Terraform Infrastructure
+# - stage: Terraform
+#   displayName: Terraform Infrastructure
 
-  jobs:
+#   jobs:
 
-  - job: TerraformApply
-    displayName: Terraform Init & Apply
+#   - job: TerraformApply
+#     displayName: Terraform Init & Apply
 
-    steps:
+#     steps:
 
-    - checkout: self
+#     - checkout: self
 
-    - task: TerraformInstaller@1
-      displayName: Install Terraform
-      inputs:
-        terraformVersion: latest
+#     - task: TerraformInstaller@1
+#       displayName: Install Terraform
+#       inputs:
+#         terraformVersion: latest
 
-    - task: TerraformTask@5
-      displayName: Terraform Init
-      inputs:
-        provider: azurerm
-        command: init
-        workingDirectory: terraform
-        backendServiceArm: $(azureServiceConnection)
-        backendAzureRmResourceGroupName: $(tfStateRG)
-        backendAzureRmStorageAccountName: $(tfStateStorage)
-        backendAzureRmContainerName: $(tfStateContainer)
-        backendAzureRmKey: $(tfStateKey)
-    # - task: TerraformTask@5
-    #   displayName: Terraform Apply (infra + push secrets to Key Vault)
-    #   inputs:
-    #     provider: azurerm
-    #     command: destroy
-    #     workingDirectory: terraform
-    #     commandOptions: >-
-    #       -auto-approve
-    #     environmentServiceNameAzureRM: $(azureServiceConnection)
+#     - task: TerraformTask@5
+#       displayName: Terraform Init
+#       inputs:
+#         provider: azurerm
+#         command: init
+#         workingDirectory: terraform
+#         backendServiceArm: $(azureServiceConnection)
+#         backendAzureRmResourceGroupName: $(tfStateRG)
+#         backendAzureRmStorageAccountName: $(tfStateStorage)
+#         backendAzureRmContainerName: $(tfStateContainer)
+#         backendAzureRmKey: $(tfStateKey)
+#     # - task: TerraformTask@5
+#     #   displayName: Terraform Apply (infra + push secrets to Key Vault)
+#     #   inputs:
+#     #     provider: azurerm
+#     #     command: destroy
+#     #     workingDirectory: terraform
+#     #     commandOptions: >-
+#     #       -auto-approve
+#     #     environmentServiceNameAzureRM: $(azureServiceConnection)
 
 
-    #########################################################
-    # Apply infra. subscription_id comes from terraform.tfvars (see the
-    # note at the top of this file); commandOptions only overrides the
-    # Key Vault coordinates so they stay in sync with the pipeline
-    # variables the Deploy stage reads secrets back with, below.
-    #########################################################
-    - task: TerraformTask@5
-      displayName: Terraform Apply (infra + push secrets to Key Vault)
-      inputs:
-        provider: azurerm
-        command: apply
-        workingDirectory: terraform
-        commandOptions: >-
-          -auto-approve
-          -var="key_vault_name=$(keyVaultName)"
-          -var="key_vault_resource_group_name=$(keyVaultResourceGroup)"
-        environmentServiceNameAzureRM: $(azureServiceConnection)
+#     #########################################################
+#     # Apply infra. subscription_id comes from terraform.tfvars (see the
+#     # note at the top of this file); commandOptions only overrides the
+#     # Key Vault coordinates so they stay in sync with the pipeline
+#     # variables the Deploy stage reads secrets back with, below.
+#     #########################################################
+#     - task: TerraformTask@5
+#       displayName: Terraform Apply (infra + push secrets to Key Vault)
+#       inputs:
+#         provider: azurerm
+#         command: apply
+#         workingDirectory: terraform
+#         commandOptions: >-
+#           -auto-approve
+#           -var="key_vault_name=$(keyVaultName)"
+#           -var="key_vault_resource_group_name=$(keyVaultResourceGroup)"
+#         environmentServiceNameAzureRM: $(azureServiceConnection)
 
-    #########################################################
-    # Print the outputs so they're visible in the pipeline log
-    # (the values themselves are also already hardcoded as
-    # pipeline variables above - this step is just for visibility).
-    #########################################################
-    - task: TerraformTask@5
-      displayName: Show Terraform Outputs
-      inputs:
-        provider: azurerm
-        command: output
-        workingDirectory: terraform
-        environmentServiceNameAzureRM: $(azureServiceConnection)
+#     #########################################################
+#     # Print the outputs so they're visible in the pipeline log
+#     # (the values themselves are also already hardcoded as
+#     # pipeline variables above - this step is just for visibility).
+#     #########################################################
+#     - task: TerraformTask@5
+#       displayName: Show Terraform Outputs
+#       inputs:
+#         provider: azurerm
+#         command: output
+#         workingDirectory: terraform
+#         environmentServiceNameAzureRM: $(azureServiceConnection)
 
 # =========================================================
 # STAGE 2 - BUILD & PUSH DOCKER IMAGES
@@ -148,7 +148,7 @@ stages:
 
 - stage: DockerBuild
   displayName: Docker Build & Push
-  dependsOn: Terraform
+  # dependsOn: Terraform
 
   jobs:
 
