@@ -4,7 +4,7 @@
 
 locals {
   # Name added to every resource (e.g. rg-credpay, aks-credpay)
-  name_prefix = "credpays1"
+  name_prefix = "credpays4"
 
   # Tags applied to every resource
   tags = {
