@@ -43,12 +43,12 @@ variables:
   tfStateRG: 'CredApp'
   tfStateStorage: 'credprojectstate'
   tfStateContainer: 'statefile'
-  tfStateKey: 'credpays1.terraform.tfstate'
+  tfStateKey: 'credpay.terraform.tfstate'
 
   # AKS cluster - deterministic names from terraform/main.tf's
   # name_prefix = "credpay" (rg-credpay / aks-credpay)
-  aksResourceGroup: 'rg-credpays1'
-  aksClusterName: 'aks-credpays1'
+  aksResourceGroup: 'rg-credpays4'
+  aksClusterName: 'aks-credpays4'
   k8sNamespace: 'credpay'
 
   # Azure Key Vault - created out-of-band (like the ACR), in the CredProj
