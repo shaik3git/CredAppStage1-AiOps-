@@ -25,7 +25,7 @@ data:
   # ---- User Service (Spring Boot) ----
   # Spring relaxed-binding: SPRING_DATASOURCE_URL overrides the property in
   # application.properties. sslmode=require enforces TLS to Azure PostgreSQL.
-  SPRING_DATASOURCE_URL: "jdbc:postgresq4://psql-credpays1.postgres.database.azure.com:5432/credpay?sslmode=require"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://psql-credpays4.postgres.database.azure.com:5432/credpay?sslmode=require"
   SPRING_DATASOURCE_USERNAME: "credpayadmin"
   # Cap the JVM heap to the container memory limit.
   JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=75.0"
