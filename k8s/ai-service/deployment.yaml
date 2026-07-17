@@ -49,7 +49,7 @@ spec:
         - name: credai-service
           # Images live in the existing ACR. AKS is already attached to
           # it via: az aks update --attach-acr credpayacrs1
-          image: credpayacrs1.azurecr.io/credpay/ai-service:latest
+          image: credpayacr1.azurecr.io/credpay/ai-service:v1
           imagePullPolicy: Always
           ports:
             - name: http
